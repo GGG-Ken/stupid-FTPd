@@ -77,7 +77,7 @@ const char *ftp_returnstr[]={
   "257 MKD command successful.\r\n",
   "258 RMD command successful.\r\n",
   "259 File successfully deleted.\r\n"
-  "540 User banned.\r\n",
+  "540 User banned.\r\n",//33
   "540 User banned.\r\n",
   "550 not a file.\r\n",
   NULL
@@ -1181,12 +1181,14 @@ void serve_child(int nr)
       break;
     case REQ_REST:
       param[32]=0; /* this should be enough */
-      j=0;
-      i=sscanf(param,"%d",&j);
-      if (i>0 && j>=0) {
-	user_return(nr,RET_350);
-	pchild[nr]->resume=j;
-      } else user_return(nr,RET_501);
+      long k = 0;
+      i = sscanf(param, "%ld", &k);
+      if (i > 0 && k >= 0)
+      {
+        user_return(nr, RET_350);
+        pchild[nr]->resume = k;
+      }
+      else user_return(nr, RET_501);
       break;
     case REQ_SIZE:
       pchild[nr]->resume=0;

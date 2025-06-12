@@ -16,7 +16,7 @@ extern int serverstop;
 
 typedef struct {
   int sock,idletime,usertype,pid;
-  int resume,state,perm;
+  long resume,state,perm;
   int userip[4],dataip[4];
   unsigned short int dataport;
   int pasvsock;
